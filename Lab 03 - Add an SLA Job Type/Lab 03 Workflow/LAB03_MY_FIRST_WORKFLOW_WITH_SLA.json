@@ -1,0 +1,41 @@
+{
+
+    "Defaults" : {
+        "ControlmServer" : "bdcctm",
+        "Application": "user01",
+        "SubApplication": "user01_LAB03",
+        "RunAs" : "user01",
+        "Host" : "bdcctm"    
+    },
+  
+   "user01_FIRST_JOB_FLOW_UAT": {
+        "Type": "Folder",
+        "SiteStandard": "techday_std",
+        
+        "EchoJob_UAT": {
+            "Type" : "Job:Command",
+            "Description" : "Basic command job",
+            "Command" : "echo hello"
+        },
+        "ShowFiles_UAT": {
+            "Type" : "Job:Command",
+            "Command" : "ls -la"
+        },
+         "PrintCurrentDirectory_UAT": {
+            "Type" : "Job:Command",
+            "Command" : "pwd"
+        },
+        "WaitJob_UAT": {
+            "Type" : "Job:Command",
+            "Command" : "sleep 30"
+        },
+        "flow1": {
+            "Type":"Flow",
+            "Sequence":["EchoJob_UAT", "ShowFiles_UAT", "PrintCurrentDirectory_UAT"]
+        },
+        "flow2": {
+            "Type":"Flow",
+            "Sequence":["EchoJob_UAT", "WaitJob_UAT", "PrintCurrentDirectory_UAT"]
+    }  		                    
+  }
+  }

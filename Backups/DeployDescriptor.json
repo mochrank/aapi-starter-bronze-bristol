@@ -1,0 +1,60 @@
+{
+  "DeployDescriptor":
+  [
+    {
+      "Property":"ControlmServer",
+      "Source": "@",
+      "Assign":"bdcctm"
+    },
+    {
+      "Property":"Host",
+      "Source": "@",
+      "Assign":"bdcctm"
+    },
+    {
+      "Property":"Application",
+      "Source": "@",
+      "Assign":"user01"
+    },
+    {
+      "Property":"SubApplication",
+      "Source": "@",
+      "Assign":"user01_LAB04"
+    },
+    {
+      "Property":"RunAs",
+      "Source": "@",
+      "Assign":"user01"
+    },
+    {
+      "Property":"SiteStandard",
+      "Source":"@",
+      "Assign":"techday_std"
+    },
+    {
+      "Property": "@",
+      "ApplyOn": {
+            "Type": "Folder"
+            },
+            "Replace": [{
+               "<USER>_FIRST_JOB_FLOW_(.*)": "user01_FIRST_JOB_FLOW_PRD"
+            }]
+    },
+    {
+      "Property": "@",
+      "ApplyOn": {
+            "Type": "Job"
+            },
+            "Replace": [{
+               "(.*)UAT": "$1PRD"
+            }]
+    },
+    {
+      "Property": "*",
+      "Replace": [{
+            "(.*)UAT": "$1PRD"
+      }]
+    }
+
+  ]
+}

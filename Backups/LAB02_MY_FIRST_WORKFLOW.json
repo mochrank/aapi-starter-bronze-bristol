@@ -1,0 +1,177 @@
+{
+  "<USER>_FIRST_JOB_FLOW_<ENV>": {
+    "Type": "Folder",
+    "ControlmServer": "<CONTROL-M-SERVER>",
+    "Description": "Please replace <USER> with your userid and <ENV> with DEV|UAT|PRD",
+    "OrderMethod": "Manual",
+    "CreatedBy": "<YOUR_EMAIL_ADDRESS>",
+    "When": {
+      "RuleBasedCalendars": {
+        "Included": [
+          "EVERYDAY"
+        ],
+        "EVERYDAY": {
+          "Type": "Calendar:RuleBased",
+          "When": {
+            "DaysRelation": "OR",
+            "WeekDays": [
+              "NONE"
+            ],
+            "MonthDays": [
+              "ALL"
+            ]
+          }
+        }
+      }
+    },
+    "<USER>_EchoJob_<ENV>": {
+      "Type": "Job:Command",
+      "Host": "<YOUR_HOST>",
+      "CreatedBy": "<YOUR_EMAIL_ADDRESS>",
+      "Description": "Please replace <USER> with your userid and <ENV> with DEV|UAT|PRD\\nOS Jobs",
+      "RunAs": "ctmagent",
+      "Command": "echo \"Job1\"",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Showfiles_<ENV>"
+          },
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Waitjob_<ENV>"
+          }
+        ]
+      }
+    },
+    "<USER>_Showfiles_<ENV>": {
+      "Type": "Job:Command",
+      "Host": "<YOUR_HOST>",
+      "CreatedBy": "<YOUR_EMAIL_ADDRESS>",
+      "Description": "Please replace <USER> with your userid and <ENV> with DEV|UAT|PRD\\nOS Jobs",
+      "RunAs": "ctmagent",
+      "Command": "/bin/ls -al",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Showfiles_<ENV>"
+          }
+        ]
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "<USER>_Showfiles_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Showfiles_<ENV>"
+          }
+        ]
+      }
+    },
+    "<USER>_WaitJob_<ENV>": {
+      "Type": "Job:Command",
+      "Host": "<YOUR_HOST>",
+      "CreatedBy": "<YOUR_EMAIL_ADDRESS>",
+      "Description": "Please replace <USER> with your userid and <ENV> with DEV|UAT|PRD\\nOS Jobs",
+      "RunAs": "ctmagent",
+      "Command": "/bin/sleep 30",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Waitjob_<ENV>"
+          }
+        ]
+      },
+      "eventsToAdd": {
+        "Type": "AddEvents",
+        "Events": [
+          {
+            "Event": "<USER>_WaitJob_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "<USER>_EchoJob_<ENV>-TO-<USER>_Waitjob_<ENV>"
+          }
+        ]
+      }
+    },
+    "<USER>_PrintCurrentDirectory_<ENV>": {
+      "Type": "Job:Command",
+      "Host": "<YOUR_HOST>",
+      "CreatedBy": "<YOUR_EMAIL_ADDRESS>",
+      "Description": "Please replace <USER> with your userid and <ENV> with DEV|UAT|PRD\\nOS Jobs",
+      "RunAs": "ctmagent",
+      "Command": "pwd",
+      "When": {
+        "WeekDays": [
+          "NONE"
+        ],
+        "MonthDays": [
+          "ALL"
+        ],
+        "DaysRelation": "OR"
+      },
+      "eventsToWaitFor": {
+        "Type": "WaitForEvents",
+        "Events": [
+          {
+            "Event": "<USER>_WaitJob_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          },
+          {
+            "Event": "<USER>_Showfiles_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          }
+        ]
+      },
+      "eventsToDelete": {
+        "Type": "DeleteEvents",
+        "Events": [
+          {
+            "Event": "<USER>_WaitJob_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          },
+          {
+            "Event": "<USER>_Showfiles_<ENV>-TO-<USER>_PrintCurrentDirectory_<ENV>"
+          }
+        ]
+      }
+    }
+  }
+}

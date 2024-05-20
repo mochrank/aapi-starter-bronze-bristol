@@ -1,0 +1,29 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "shift+ctrl+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run in Control-M"
+      },
+      {
+        "key": "shift+ctrl+s",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Get status from Control-M"
+      },
+      {
+        "key": "shift+ctrl+l",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Get job log from Control-M"
+      },
+      {
+        "key": "shift+ctrl+j",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Get job status from Control-M"
+      },
+      {
+        "key": "shift+ctrl+o",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Get job output from Control-M"
+      }
+      
+]

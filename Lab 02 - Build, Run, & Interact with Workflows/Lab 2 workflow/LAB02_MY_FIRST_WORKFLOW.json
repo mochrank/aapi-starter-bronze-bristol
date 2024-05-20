@@ -1,0 +1,41 @@
+{
+
+  "Defaults" : {
+      "ControlmServer" : "<CONTROL-M-SERVER>",
+      "Application": "<USER>",
+      "SubApplication": "<USER>_LAB02",
+      "RunAs" : "<USER>",
+      "Host" : "<YOUR_HOST>"    
+  },
+
+ "<USER>_FIRST_JOB_FLOW_UAT": {
+      "Type": "Folder",
+      "SiteStandard": "",
+      
+      "EchoJob_UAT": {
+          "Type" : "Job:Command",
+          "Description" : "Basic command job",
+          "Command" : "echo hello"
+      },
+      "ShowFiles_UAT": {
+          "Type" : "Job:Command",
+          "Command" : "ls -la"
+      },
+       "PrintCurrentDirectory_UAT": {
+          "Type" : "Job:Command",
+          "Command" : "pwd"
+      },
+      "WaitJob_UAT": {
+          "Type" : "Job:Command",
+          "Command" : "sleep 30"
+      },
+      "flow1": {
+          "Type":"Flow",
+          "Sequence":["EchoJob_UAT", "ShowFiles_UAT", "PrintCurrentDirectory_UAT"]
+      },
+      "flow2": {
+          "Type":"Flow",
+          "Sequence":["EchoJob_UAT", "WaitJob_UAT", "PrintCurrentDirectory_UAT"]
+  }		                    
+}
+}
