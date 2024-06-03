@@ -1,0 +1,10 @@
+{
+    "LocalConn": {
+        "Type": "ConnectionProfile:FileTransfer:Local",
+        "VerifyBytes": true,
+        "User": "user01",
+        "Password": "password",
+        "Description": "Local connection to access the local file system",
+        "Centralized": true
+    }
+}
